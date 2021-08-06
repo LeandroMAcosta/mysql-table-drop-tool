@@ -23,9 +23,9 @@ def main(args):
     kwargs = dict(filter(lambda arg: arg[1] is not None, vars(args).items()))
     
     kwargs.pop('password')
-    if args.password:
-        kwargs['password'] = getpass.getpass()
-    
+    if not args.password:
+        kwargs['password'] = getpass.getpass("Password: ")
+
     conn = DBConnection(**kwargs).get_connection()
     all_tables = get_all_tables()
     graph = build_graph(all_tables)
